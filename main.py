@@ -3,6 +3,7 @@
 # Torrent RSS pecification
 # http://www.bittorrent.org/beps/bep_0036.html
 
+import sys
 import json
 import urllib
 import urllib2
@@ -53,7 +54,11 @@ def torrentify_rss(rss):
                 channel.remove(item)
             
 
-def save_rss(rss, filename='pitchfork.rss'):
-    rss.write(filename, encoding='utf-8', xml_declaration=True)
+def save_rss(rss, stream):
+    rss.write(stream, encoding='utf-8', xml_declaration=True)
 
 
+if __name__ == '__main__':
+    rss = fetch_pitchfork_reviews_rss()
+    torrentify_rss(rss)
+    save_rss(rss, sys.stdout)
